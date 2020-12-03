@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {%load static%}
+    <link rel="stylesheet" type="text/css" href="{%static 'css/complain.css'%}">
+
+
+    <title>Hello, world!</title>
+    <script> 
+    function upload_check()
+        {
+            var upl = document.getElementById("file_id");
+            var imgsize = document.getElementById("imagesize");
+            
+            
+            if(Math.round(upl.files[0].size)/1024 > 1000 )
+            {
+            imgsize.style.display=""; 
+            upl.value = "";
+            }
+            else
+            {
+
+                imgsize.style.display="none"; 
+            }
+        };
+     
+</script>
+</head>
+
+<body>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-2"></div>
+            <div class="col-lg-6 col-md-8 login-box">
+                <div class="col-lg-12 login-title">
+                    Complaint Box
+                </div>
+
+                <div class="col-lg-12 login-form">
+                    <div class="col-lg-12 registration-form">
+                        <form class="needs-validation" novalidate method="post" action="{{action}}" enctype="multipart/form-data">{% csrf_token %}
+                            <div class="form-group">
+                                <label class="form-control-label">Problem</label>
+                                <select name="problem" id="problem" value="{{complaint.problem}}">
+                                    <option value="Water"{% if complaint.problem == "Water"%}selected{% endif %}>Water</option>
+                                    <option value="Garbadge"{% if complaint.problem == "Garbadge"%}selected{% endif %}>Garbadge</option>
+                                    <option value="Electricity"{% if complaint.problem == "Electricity"%}selected{% endif %}>Electricity</option>
+                                    <option value="Food"{% if complaint.problem == "Food"%}selected{% endif %}>Food</option>
+                                </select>
+
+
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label">Description</label>
+                                <textarea  rows="4" cols="40" name="description" class="form-control" 
+                                    required>{{complaint.description}}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <input value="{{complaint.image}}"  type="file" accept="image/*" name="image" onchange="upload_check()" id="file_id" onchange="ValidateSize(this)"  id="image"class="form-control" required>
+                                <span style='display:none;color:red' id="imagesize"><small>Image size should be <2 MB
+                                        </small></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-control-label">Address</label>
+                                <textarea rows="4" cols="40" name="address" class="form-control"
+                                    required>{{complaint.address}}</textarea>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Ward</label>
+                                <select name="ward" id="ward" value="{{complaint.ward}}">
+                                    <option value="Maninagr"{% if complaint.ward == "Maninagar"%}selected{% endif %}>Maninagar</option>
+                                    <option value="Shahpur"{% if complaint.ward == "Shahpur"%}selected{% endif %}>Shahpur</option>
+                                    <option value="Ghodasar"{% if complaint.ward == "Ghodasar"%}selected{% endif %}>Ghodasar</option>
+                                    <option value="Kankaria"{% if complaint.ward == "Kankaria"%}selected{% endif %}>Kankaria</option>
+                                    <option value="Shyamal"{% if complaint.ward == "Shyamal"%}selected{% endif %}>Shyamal</option>
+                                </select>
+
+
+                            </div>
+                            <div class="form-group">
+                                <label class="form-control-label">Zip</label>
+                                <input value="{{complaint.zip}}" type="text" name="zip" class="form-control"  required>
+
+                            </div>
+
+
+
+                            <div class="col-lg-12 loginbttm">
+
+                                <div class="col-lg-6 login-btm login-button">
+                                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-2"></div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
